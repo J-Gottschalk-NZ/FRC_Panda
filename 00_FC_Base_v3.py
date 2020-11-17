@@ -118,6 +118,14 @@ def get_expenses(var_fixed):
     return [expense_frame, sub_total]
 
 
+# Prints expense frames
+def expense_print(heading, frame, subtotal):
+    print()
+    print("**** {} Costs ****".format(heading))
+    print(frame)
+    print()
+    print("{} Costs: ${:.2f}".format(heading, subtotal))
+
 # **** Main Routine goes here ****
 # Get product name
 product_name = not_blank("Product name: ", "The product name can't be blank.")
@@ -151,15 +159,9 @@ else:
 print()
 print("**** Fund Raising - {} *****".format(product_name))
 print()
-print("**** Variable Costs ****")
-print(variable_frame)
-print()
+expense_print("Variable", variable_frame, variable_sub)
 
-print("Variable Costs: ${:.2f}".format(variable_sub))
+if have_fixed == "yes":
+    expense_print("Fixed", fixed_frame[['Cost']], fixed_sub)
 
-print()
-print("**** Fixed Costs ****")
-print(fixed_frame[['Cost']])
-print()
 
-print("Fixed Costs: ${:.2f}".format(fixed_sub))
