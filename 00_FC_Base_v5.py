@@ -1,7 +1,9 @@
 # import libraries
 import pandas
+import math
 
 # *** Functions go here ****
+
 
 # checks that input is either a float or an
 # integer that is more than zero.  Takes in custom error message
@@ -193,9 +195,17 @@ def profit_goal(total_costs):
             return goal
 
 
+# rounding function
+def round_up(amount, round_to):
+    # rounds amount UP to the specified amount (round_to)
+    return int(round_to * round(math.ceil(amount) / round_to))
+
+
 # **** Main Routine goes here ****
 # Get product name
 product_name = not_blank("Product name: ", "The product name can't be blank.")
+how_many = num_check("How many items will you be producing? ",
+                     "The number of items must be a whole number more than zero", int)
 
 print()
 print("Please enter your variable costs below...")
