@@ -1,3 +1,6 @@
+import pandas
+
+
 def num_check(question, error, num_type):
     valid = False
 
@@ -49,6 +52,7 @@ item_name = not_blank("Item name: ", "The item name can't be blank.")
 comp_name = ""
 while comp_name.lower() != "xxx":
 
+    print()
     # get name, quantity and item
     comp_name = not_blank("Component name: ", "The component name can't be blank.")
     if comp_name.lower() == "xxx":
@@ -61,7 +65,23 @@ while comp_name.lower() != "xxx":
                       "The price must be a number <more than 0>",
                       float)
 
+
     # add item, quantity and price to lists
     component_list.append(comp_name)
     quantity_list.append(quantity)
     price_list.append(price)
+
+variable_frame = pandas.DataFrame(variable_dict)
+variable_frame = variable_frame.set_index('Component')
+
+# Calculate cost of each component
+variable_frame['Cost'] = variable_frame['Quantity'] * variable_frame['Price']
+
+variable_sub = variable_frame['Cost'].sum()
+
+
+print(variable_frame)
+
+print()
+
+print("Variable Costs: ${:.2f}".format(variable_sub))
