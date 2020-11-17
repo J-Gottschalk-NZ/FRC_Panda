@@ -21,13 +21,7 @@ def num_check(question, error, num_type):
 
 # rounding function
 def round_up(amount, round_to):
-    # rounds amount UP to the specified amount (round_to)
-
-    rounded = round_to * round(math.ceil(amount) / round_to)
-    if rounded < amount:
-        amount += 0.1
-
-    return int(round_to * round(math.ceil(amount) / round_to))
+    return int(math.ceil(amount / round_to)) * round_to
 
 
 # Main routine starts here

@@ -71,7 +71,7 @@ def get_expenses(var_fixed):
     quantity_list = []
     price_list = []
 
-    variable_dict = {
+    expense_dict = {
         "Item": item_list,
         "Quantity": quantity_list,
         "Price": price_list
@@ -103,7 +103,7 @@ def get_expenses(var_fixed):
         quantity_list.append(quantity)
         price_list.append(price)
 
-    expense_frame = pandas.DataFrame(variable_dict)
+    expense_frame = pandas.DataFrame(expense_dict)
     expense_frame = expense_frame.set_index('Item')
 
     # Calculate cost of each component
@@ -197,8 +197,7 @@ def profit_goal(total_costs):
 
 # rounding function
 def round_up(amount, round_to):
-    # rounds amount UP to the specified amount (round_to)
-    return int(round_to * round(math.ceil(amount) / round_to))
+    return int(math.ceil(amount / round_to)) * round_to
 
 
 # **** Main Routine goes here ****
@@ -229,8 +228,17 @@ else:
 all_costs = variable_sub + fixed_sub
 profit_target = profit_goal(all_costs)
 
+# Calculates total sales needed to reach goal
+sales_needed = all_costs + profit_target
+
+# Ask user for rounding
+round_to = num_check("Round to nearest...? $", "Can't be 0", int)
+
 # Calculate recommended price
-selling_price = 0
+selling_price = sales_needed / how_many
+print("Selling Price (unrounded): ${:.2f}".format(selling_price))
+
+recommended_price = round_up(selling_price, round_to)
 
 # Write data to file
 
@@ -254,4 +262,6 @@ print("Profit Target: ${:.2f}".format(profit_target))
 print("Total Sales: ${:.2f}".format(all_costs + profit_target))
 
 print()
-print("**** Recommended Selling Price: ${:.2f}".format(selling_price))
+print("**** Pricing *****")
+print("Minimum Price: ${:.2f}".format(selling_price))
+print("Recommended Price: ${:.2f}".format(recommended_price))
