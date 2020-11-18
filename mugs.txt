@@ -1,0 +1,24 @@
+**** Fund Raising - mugs *****
+
+
+**** Variable Costs ****
+       Quantity  Price   Cost
+Item                         
+thing         1  $3.00  $3.00
+
+Variable Costs: $3.00
+
+No Fixed Costs
+**** Total Costs: $3.00 ****
+
+
+
+**** Profit & Sales Targets ****
+
+Profit Target: $0.00
+Total Sales: $3.00
+
+**** Pricing *****
+Minimum Price: $0.01
+Recommended Price: $1.00
+

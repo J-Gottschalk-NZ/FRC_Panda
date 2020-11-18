@@ -57,6 +57,32 @@ def not_blank(question, error):
         return response
 
 
+# Welcomes users and shows instructions on request
+def instructions():
+
+  print("****** Welcome to the Fund Raising Calculator ******")
+
+  first_time = yes_no("\nHave you used this program before? ")
+
+  if first_time == "yes":
+    return ""
+
+  print()
+  print("***** Instructions ******")
+  print()
+  print("This program will ask you for...")
+  print("- The name of the product you are selling")
+  print("- How many items you plan on selling")
+  print("- The costs for each component of the product")
+  print("- How much money you want o make")
+  print()
+  print("It will then output an itemised list of of the costs with subtotals for the variable and fixed costs.")
+  print("Finally it will tell you how much you should sell each item for to reach your profit goal.")
+  print()
+  print("The data will also be written to a text file which has the same "
+      " name as your product.")
+
+
 # currency formatting function
 def currency(x):
     return "${:.2f}".format(x)
@@ -165,7 +191,7 @@ def profit_goal(total_costs):
         try:
             # Check amount is a number more than zero...
             amount = float(amount)
-            if amount < 0:
+            if amount <= 0:
                 print(error)
                 continue
 
@@ -203,6 +229,9 @@ def round_up(amount, round_to):
 
 
 # **** Main Routine goes here ****
+
+instructions()
+
 # Get product name
 product_name = not_blank("Product name: ", "The product name can't be blank.")
 how_many = num_check("How many items will you be producing? ",
@@ -236,7 +265,9 @@ profit_target = profit_goal(all_costs)
 sales_needed = all_costs + profit_target
 
 # Ask user for rounding
-round_to = num_check("Round to nearest...? $", "Can't be 0", int)
+round_to = num_check("Round to nearest...? $",
+                     "Please enter a whole dollar amount "
+                     "(more than zero)", int)
 
 # Calculate recommended price
 selling_price = sales_needed / how_many
