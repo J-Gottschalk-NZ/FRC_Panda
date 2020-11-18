@@ -40,7 +40,6 @@ for item in to_write:
     text_file.write(item)
     text_file.write("\n\n")
 
-
 # close file
 text_file.close()
 

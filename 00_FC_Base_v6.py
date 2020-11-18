@@ -122,11 +122,13 @@ def get_expenses(var_fixed):
 
 # Prints expense frames
 def expense_print(heading, frame, subtotal):
-    print()
-    print("**** {} Costs ****".format(heading))
-    print(frame)
-    print()
-    print("{} Costs: ${:.2f}".format(heading, subtotal))
+    cost_heading = "\n\n**** {} Costs ****".format(heading)
+    frame_txt = pandas.DataFrame.to_string(frame)
+    subtotal_txt = "\n{} Costs: ${:.2f}".format(heading, subtotal)
+
+    expense_txt_list = [cost_heading, frame_txt, subtotal_txt]
+
+    return expense_txt_list
 
 
 # work out profit goal and total sales required
@@ -226,6 +228,8 @@ else:
 
 # work out total costs and profit target
 all_costs = variable_sub + fixed_sub
+
+print()
 profit_target = profit_goal(all_costs)
 
 # Calculates total sales needed to reach goal
@@ -240,28 +244,57 @@ print("Selling Price (unrounded): ${:.2f}".format(selling_price))
 
 recommended_price = round_up(selling_price, round_to)
 
-# Write data to file
+# *** Set up output list... ****
 
-# *** Printing Area ****
+main_heading = "**** Fund Raising - {} *****".format(product_name)
 
-print()
-print("**** Fund Raising - {} *****".format(product_name))
-print()
-expense_print("Variable", variable_frame, variable_sub)
+variable_costs = expense_print("Variable", variable_frame, variable_sub)
 
 if have_fixed == "yes":
-    expense_print("Fixed", fixed_frame[['Cost']], fixed_sub)
+    fixed_costs = expense_print("Fixed", fixed_frame[['Cost']], fixed_sub)
+    fixed_costs_lbl = "{}\n {}\n {}\n".format(
+        fixed_costs[0], fixed_costs[1], fixed_costs[2]
+    )
+else:
+    fixed_costs_lbl = "\nNo Fixed Costs"
 
-print()
-print("**** Total Costs: ${:.2f} ****".format(all_costs))
-print()
+total_costs_heading = "**** Total Costs: ${:.2f} ****\n".format(all_costs)
 
-print()
-print("**** Profit & Sales Targets ****")
-print("Profit Target: ${:.2f}".format(profit_target))
-print("Total Sales: ${:.2f}".format(all_costs + profit_target))
+target_heading = "\n\n**** Profit & Sales Targets ****\n"
+profit_target_lbl = "Profit Target: ${:.2f}".format(profit_target)
+sales_lbl = "Total Sales: ${:.2f}\n".format(all_costs + profit_target)
 
+pricing_heading = "**** Pricing *****"
+min_price_lbl = "Minimum Price: ${:.2f}".format(selling_price)
+recommended_lbl = "Recommended Price: ${:.2f}\n".format(recommended_price)
+
+output_list = [
+    main_heading,
+    variable_costs[0], variable_costs[1], variable_costs[2],
+    fixed_costs_lbl, total_costs_heading,
+    target_heading, profit_target_lbl,
+    sales_lbl, pricing_heading, min_price_lbl,
+    recommended_lbl
+]
+
+# Output to file
+# Replace any spaces in product name with
+# underscores so this can be used as a filename
+file_name = product_name.replace(" ", "_")
+
+# add .txt extension to filename
+file_name = "{}.txt".format(file_name)
+text_file = open(file_name, "w+")
+
+# heading
+for item in output_list:
+    text_file.write(item)
+    text_file.write("\n")
+
+# close file
+text_file.close()
+
+# **** Printing Area ****
 print()
-print("**** Pricing *****")
-print("Minimum Price: ${:.2f}".format(selling_price))
-print("Recommended Price: ${:.2f}".format(recommended_price))
+for item in output_list:
+    print(item)
