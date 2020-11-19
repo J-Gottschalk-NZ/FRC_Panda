@@ -51,7 +51,8 @@ variable_dict = {
 }
 
 # Get user data
-product_name = not_blank("Product name: ", "The product name can't be blank.")
+product_name = not_blank("Product name: ",
+                         "The product name can't be blank.")
 
 # loop to get component, quantity and price
 item_name = ""
@@ -59,17 +60,20 @@ while item_name.lower() != "xxx":
 
     print()
     # get name, quantity and item
-    item_name = not_blank("Item name: ", "The component name can't be blank.")
+    item_name = not_blank("Item name: ",
+                          "The component name can't be "
+                          "blank.")
     if item_name.lower() == "xxx":
         break
 
     quantity = num_check("Quantity:",
-                         "The amount must be a whole number more than zero",
+                         "The amount must be a whole number "
+                         "more than zero",
                          int)
     price = num_check("How much for a single item? $",
-                      "The price must be a number <more than 0>",
+                      "The price must be a number <more "
+                      "than 0>",
                       float)
-
 
     # add item, quantity and price to lists
     item_list.append(item_name)
@@ -81,7 +85,8 @@ variable_frame = pandas.DataFrame(variable_dict)
 variable_frame = variable_frame.set_index('Item')
 
 # Calculate cost of each component
-variable_frame['Cost'] = variable_frame['Quantity'] * variable_frame['Price']
+variable_frame['Cost'] = variable_frame['Quantity']\
+                         * variable_frame['Price']
 
 # Find sub total
 variable_sub = variable_frame['Cost'].sum()

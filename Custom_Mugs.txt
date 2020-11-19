@@ -3,20 +3,25 @@
 **** Variable Costs ****
             Quantity  Price     Cost
 Item                                
+Plain mugs       300  $1.00  $300.00
 Printing         300  $0.75  $225.00
-Plain Mugs       300  $1.00  $300.00
-Packaging        100  $0.50   $50.00
-Variable Costs: $575.00
+Packaging        150  $0.50   $75.00
+Variable Costs: $600.00
 
-*** No Fixed Costs ***
+**** Fixed Costs ****
+        Cost
+Item        
+Rent  $25.00
+Ads   $10.00
+Fixed Costs: $35.00
 
-**** Total Costs: $575.00 ****
+**** Total Costs: $635.00 ****
 
 **** Profit & Sales Targets **** 
- Profit Target: $287.50
- Total Sales: $862.50
+ Profit Target: $100.00
+ Total Sales: $735.00
 
 **** Pricing *****
- Minimum Price: $2.88
- Recommended Price: $3.00
+ Minimum Price: $2.45
+ Recommended Price: $4.00
 

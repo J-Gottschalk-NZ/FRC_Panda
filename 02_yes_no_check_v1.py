@@ -7,15 +7,16 @@ def yes_no(question):
 
         response = input(question).lower()
 
-        for item in to_check:
-            if response == item:
+        for var_item in to_check:
+            if response == var_item:
                 return response
-            elif response == item[0]:
-                return item
+            elif response == var_item[0]:
+                return var_item
 
         print("Please enter either yes or no...\n")
 
+
 # Loops to make testing faster...
 for item in range(0,6):
-  want_help = yes_no("Do want to read the instructions? ")
-  print("You said '{}'\n".format(want_help))
+    want_help = yes_no("Do want to read the instructions? ")
+    print("You said '{}'\n".format(want_help))
