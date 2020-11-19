@@ -1,6 +1,7 @@
 # import libraries
 import pandas
 
+
 # *** Functions go here ****
 
 # checks that input is either a float or an
@@ -125,6 +126,8 @@ def expense_print(heading, frame, subtotal):
     print(frame)
     print()
     print("{} Costs: ${:.2f}".format(heading, subtotal))
+    return ""
+
 
 # **** Main Routine goes here ****
 # Get product name

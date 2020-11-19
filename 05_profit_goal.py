@@ -24,8 +24,6 @@ def profit_goal(total_costs):
 
     # Initialise variables and error message
     error = "Please enter a valid profit goal\n"
-    profit_type = ""
-    amount = 0
 
     valid = False
     while not valid:
@@ -40,7 +38,7 @@ def profit_goal(total_costs):
             amount = response[1:]
 
         # check if last character is %
-        elif response [-1] == "%":
+        elif response[-1] == "%":
             profit_type = "%"
             # Get amount (everything before the %)
             amount = response[:-1]
@@ -53,7 +51,7 @@ def profit_goal(total_costs):
         try:
             # Check amount is a number more than zero...
             amount = float(amount)
-            if amount < 0:
+            if amount <= 0:
                 print(error)
                 continue
 
@@ -62,7 +60,9 @@ def profit_goal(total_costs):
             continue
 
         if profit_type == "unknown" and amount >= 100:
-            dollar_type = yes_no("Do you mean ${:.2f}.  ie {:.2f} dollars? , y / n ".format(amount, amount))
+            dollar_type = yes_no("Do you mean ${:.2f}.  "
+                                 "ie {:.2f} dollars? ,"
+                                 "y / n ".format(amount, amount))
 
             # Set profit type based on user answer above
             if dollar_type == "yes":
@@ -71,7 +71,8 @@ def profit_goal(total_costs):
                 profit_type = "%"
 
         elif profit_type == "unknown" and amount < 100:
-            percent_type = yes_no("Do you mean {}%? , y / n".format(amount))
+            percent_type = yes_no("Do you mean {}%? , "
+                                  "y / n".format(amount))
             if percent_type == "yes":
                 profit_type = "%"
             else:
@@ -84,11 +85,12 @@ def profit_goal(total_costs):
             goal = (amount / 100) * total_costs
             return goal
 
+
 # Main  Routine goes here
 all_costs = 200
 
 # Loop for quick testing...
-for item in range (0,6):
+for item in range(0, 6):
     profit_target = profit_goal(all_costs)
     print("Profit Target: ${:.2f}".format(profit_target))
     print("Total Sales: ${:.2f}".format(all_costs + profit_target))

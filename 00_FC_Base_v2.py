@@ -62,6 +62,7 @@ def currency(x):
 
 
 # Gets expenses, returns list which has
+# Gets expenses, returns list which has
 # the data frame and sub total
 def get_expenses(var_fixed):
     # Set up dictionaries and lists
@@ -82,23 +83,26 @@ def get_expenses(var_fixed):
 
         print()
         # get name, quantity and item
-        item_name = not_blank("Item name: ", "The component name can't be blank.")
+        item_name = not_blank("Item name: ",
+                              "The component name can't be blank.")
         if item_name.lower() == "xxx":
             break
 
-        quantity = num_check("Quantity:",
-                             "The amount must be a whole number more than zero",
-                             int)
-        price = num_check("How much for a single item? $",
+        if var_fixed == "variable":
+            quantity = num_check("Quantity:",
+                                 "The amount must be a whole number more than zero",
+                                 int)
+        else:
+            quantity = 1
+
+        price = num_check("How much? $",
                           "The price must be a number <more than 0>",
                           float)
-
 
         # add item, quantity and price to lists
         item_list.append(item_name)
         quantity_list.append(quantity)
         price_list.append(price)
-
 
     expense_frame = pandas.DataFrame(variable_dict)
     expense_frame = expense_frame.set_index('Item')
@@ -127,6 +131,9 @@ variable_frame = variable_expenses[0]
 variable_sub = variable_expenses[1]
 
 # Get fixed costs
+fixed_expenses = get_expenses("fixed")
+fixed_frame = variable_expenses[0]
+fixed_sub = fixed_expenses[1]
 
 # Find Total Costs
 
@@ -138,8 +145,13 @@ variable_sub = variable_expenses[1]
 
 # *** Printing Area ****
 
-print()
+print("**** Variable Costs *****")
 print(variable_frame)
 print()
 
 print("Variable Costs: ${:.2f}".format(variable_sub))
+
+print("**** Fixed Costs *****")
+print(fixed_frame[['Cost']])
+print()
+print("Fixed Costs: ${:.2f}".format(fixed_sub))

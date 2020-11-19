@@ -57,14 +57,15 @@ def get_expenses(var_fixed):
 
         print()
         # get name, quantity and item
-        item_name = not_blank("Item name: ", "The component name can't be blank.")
+        item_name = not_blank("Item name: ",
+                              "The component name can't be blank.")
         if item_name.lower() == "xxx":
             break
 
         if var_fixed == "variable":
             quantity = num_check("Quantity:",
-                             "The amount must be a whole number more than zero",
-                             int)
+                                 "The amount must be a whole number more than zero",
+                                 int)
         else:
             quantity = 1
 
